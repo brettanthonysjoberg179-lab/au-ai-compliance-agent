@@ -62,7 +62,7 @@ PRODUCT_PRICE = 29  # USD
 LOG_DIR.mkdir(exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s",
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     handlers=[
         logging.FileHandler(LOG_DIR / "agent.log"),
         logging.StreamHandler(),
@@ -150,7 +150,7 @@ def llm_generate(prompt: str, system: str = None) -> str | None:
     try:
         import urllib.request
         data = json.dumps({
-            "model": os.getenv("OLLAMA_MODEL", "llama3.2:latest"),
+            "model": os.getenv("OLLAMA_MODEL", "qwen2.5:latest"),
             "prompt": f"{system}\n\n{prompt}" if system else prompt,
             "stream": False,
         }).encode()
